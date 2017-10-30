@@ -1,4 +1,5 @@
-﻿using SimpleInjector;
+﻿using RestSharp;
+using SimpleInjector;
 using Telegram4Net.SchemaTools.Helpers;
 
 namespace Telegram4Net.SchemaTools.Bootstrappers
@@ -9,6 +10,7 @@ namespace Telegram4Net.SchemaTools.Bootstrappers
         {
             container.Register<IJsonConverterHelper, JsonConverterHelper>();
 
+            container.Register<IRestClient>(() => new RestClient());
             container.Register<ISchemaRetriever, SchemaRetriever>();
             container.Register<ISchemaBuilder, SchemaBuilder>();
         }

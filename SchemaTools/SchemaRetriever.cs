@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using RestSharp;
 
@@ -11,15 +12,22 @@ namespace Telegram4Net.SchemaTools
 
     public class SchemaRetriever : ISchemaRetriever
     {
+        private readonly IRestClient _restClient;
+
+        public SchemaRetriever(IRestClient restClient)
+        {
+            _restClient = restClient;
+        }
+
         public async Task<string> Retrieve()
         {
             string result = string.Empty;
 
-            IRestClient restClient = new RestClient("https://core.telegram.org/schema/json");
+            _restClient.BaseUrl = new Uri("https://core.telegram.org/schema/json");
 
             IRestRequest restRequest = new RestRequest(Method.GET);
 
-            IRestResponse restResponse = await restClient.ExecuteGetTaskAsync(restRequest);
+            IRestResponse restResponse = await _restClient.ExecuteGetTaskAsync(restRequest);
 
             if (restResponse.ResponseStatus == ResponseStatus.Completed)
             {
