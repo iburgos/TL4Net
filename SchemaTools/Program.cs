@@ -13,11 +13,9 @@ namespace Telegram4Net.SchemaTools
 
             Bootstrapper.Initialize(container);
 
-            var startClass = container.GetInstance<ISchemaRetriever>();
-
-            var myTask = Task.Run(() => startClass.Retrieve());
-            var myresult = myTask.Result;
-            Console.Write(myresult);
+            var startClass = container.GetInstance<ISchemaBuilder>();
+            var task = Task.Run(() => startClass.Build());
+            Console.WriteLine(task.Result);
             Console.ReadKey();
         }
     }
