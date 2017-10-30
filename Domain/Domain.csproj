@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Telegram4Net.Domain</AssemblyName>
+    <RootNamespace>Telegram4Net.Domain</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="TL\" />
+  </ItemGroup>
+
+</Project>

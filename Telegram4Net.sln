@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaTools", "SchemaTools\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaTools.Tests", "Tests\SchemaTools.Tests\SchemaTools.Tests.csproj", "{74960A72-E60D-4B77-9D9F-7464B6542981}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{81605479-A3B8-43CA-9C6D-36DD1FBB51FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{74960A72-E60D-4B77-9D9F-7464B6542981}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74960A72-E60D-4B77-9D9F-7464B6542981}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74960A72-E60D-4B77-9D9F-7464B6542981}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81605479-A3B8-43CA-9C6D-36DD1FBB51FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81605479-A3B8-43CA-9C6D-36DD1FBB51FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81605479-A3B8-43CA-9C6D-36DD1FBB51FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81605479-A3B8-43CA-9C6D-36DD1FBB51FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

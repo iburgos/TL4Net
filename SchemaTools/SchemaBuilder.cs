@@ -26,6 +26,8 @@ namespace Telegram4Net.SchemaTools
 
             var schema = _jsonConverterHelper.Deserialize<Schema>(schemaJson);
 
+
+
             return true;
         }
     }
