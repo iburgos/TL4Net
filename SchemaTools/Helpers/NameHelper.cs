@@ -8,12 +8,12 @@ namespace Telegram4Net.SchemaTools.Helpers
         public static string GetNameSpace(string type)
         {
             if (ContainsDot(type))
-                return $"{Constants.FullDomainNameFolder}.{FormatName(GetDomainFromType(type))}";
+                return $"{Constants.FullDomainNameFolder}.{FormatNamespaceName(GetDomainFromType(type))}";
 
             return Constants.FullDomainNameFolder;
         }
 
-        public static string FormatName(string domain)
+        public static string FormatNamespaceName(string domain)
         {
             if (String.IsNullOrEmpty(domain))
                 throw new ArgumentException("ARGH!");
@@ -24,7 +24,7 @@ namespace Telegram4Net.SchemaTools.Helpers
                 string temp = string.Empty;
                 foreach (string s in domain.Split(Constants.EmptyChar))
                 {
-                    temp += FormatName(s) + Constants.EmptyString;
+                    temp += FormatNamespaceName(s) + Constants.EmptyString;
                 }
                 domain = temp.Trim();
             }
@@ -32,20 +32,45 @@ namespace Telegram4Net.SchemaTools.Helpers
             return Capitalize(domain);
         }
 
-        public static string GetNameofClass(string type, bool isInterface = false, bool isMethod = false)
+        public static string FormatFileName(string type)
+        {
+            const string CLASS_PREFIX = "TL";
+
+            if (String.IsNullOrEmpty(type))
+                throw new ArgumentException("ARGH!");
+
+            string domain = GetDomainFromType(type);
+            Console.WriteLine($"type => {type} - - - domain => {domain}");
+            return CLASS_PREFIX + Capitalize(domain) + Capitalize(type);
+        }
+
+        public static string GetNameofClass(string type)
         {
             bool containsDot = ContainsDot(type);
             bool containsQuestionmark = ContainsQuestionmark(type);
 
             string formatedName;
             if (containsDot && containsQuestionmark == false)
-                formatedName = FormatName(type.Split(Constants.DotChar)[1]);
+                formatedName = FormatFileName(type.Split(Constants.DotChar)[1]);
             else if (containsDot)
-                formatedName = FormatName(type.Split(Constants.QuestionmarkChar)[1]);
+                formatedName = FormatFileName(type.Split(Constants.QuestionmarkChar)[1]);
             else
-                formatedName = FormatName(type);
+                formatedName = FormatFileName(type);
 
-            return isInterface ? $"TL{formatedName}" : formatedName;
+            return formatedName;
+        }
+
+        public static string GetDomainFromType(string type)
+        {
+            string[] typeArray = type.Split(Constants.DotChar);
+            return typeArray.Length == 1 ? string.Empty : typeArray[0];
+        }
+
+        public static string Capitalize(string word)
+        {
+            return 
+                word == string.Empty ? string.Empty : 
+                word.First().ToString().ToUpper() + word.Substring(1);
         }
 
         private static bool ContainsDot(string type)
@@ -56,16 +81,6 @@ namespace Telegram4Net.SchemaTools.Helpers
         private static bool ContainsQuestionmark(string type)
         {
             return type.IndexOf(Constants.QuestionmarkChar) != -1;
-        }
-
-        private static string GetDomainFromType(string type)
-        {
-            return type.Split(Constants.DotChar)[0];
-        }
-
-        private static string Capitalize(string word)
-        {
-            return word.First().ToString().ToUpper() + word.Substring(1);
         }
     }
 }

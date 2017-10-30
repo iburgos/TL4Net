@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using Telegram4Net.SchemaTools.Helpers;
 using Telegram4Net.SchemaTools.Models;
 
@@ -15,7 +13,7 @@ namespace Telegram4Net.SchemaTools.Processors
 
     public class ConstructorsProcessor : IConstructorsProcessor
     {
-        private string AbsTemplate => File.ReadAllText("../Templates/ConstructorAbs.tmp");
+        private string AbsTemplate => File.ReadAllText("../Debug/Templates/ConstructorAbs.tmp");
 
         public void Process(List<Constructor> constructorList)
         {
@@ -25,25 +23,16 @@ namespace Telegram4Net.SchemaTools.Processors
                 if (sameTypeConstructors.Count > 1)
                 {
                     string nameSpace = NameHelper.GetNameSpace(constructor.Type);
-                    string className = NameHelper.GetNameofClass(constructor.Type, true);
-                    var dir = RootFolder + $"\\Domain\\TL\\{className}.cs";
+                    string className = NameHelper.GetNameofClass(constructor.Type);
+                    string directory = FileHelper.GetFolderName(constructor.Type);
+                    string path = $"{directory}\\{className}.cs";
 
-                    string path =
-                    (NameHelper.GetNameSpace(constructor.Type).Replace("TeleSharp.TL", "TL\\").Replace(".", "") + "\\" +
-                     NameHelper.GetNameofClass(constructor.Type, true) + ".cs").Replace("\\\\", "\\");
-
-                    FileStream classFile = FileHelpers.CreateFile(path);
+                    FileStream classFile = FileHelper.CreateFile(path);
 
                     using (StreamWriter writer = new StreamWriter(classFile))
-                    {
-                        string nspace = (NameHelper.GetNameSpace(constructor.Type).Replace("TeleSharp.TL", "TL\\").Replace(".", "")).Replace("\\\\", "\\").Replace("\\", ".");
-                        if (nspace.EndsWith("."))
-                        {
-                            nspace = nspace.Remove(nspace.Length - 1, 1);
-                        }
-                        
-                        string temp = AbsTemplate.Replace(Constants.NamespaceSection, "TeleSharp." + nspace);
-                        temp = temp.Replace(Constants.NameSection, NameHelper.GetNameofClass(constructor.Type, true));
+                    {                      
+                        string temp = AbsTemplate.Replace(Constants.NamespaceSection, nameSpace);
+                        temp = temp.Replace(Constants.NameSection, NameHelper.GetNameofClass(constructor.Type));
                         writer.Write(temp);
                         writer.Close();
                         classFile.Close();
@@ -62,29 +51,6 @@ namespace Telegram4Net.SchemaTools.Processors
             return constructorList.Where(x => x.Type == type).ToList();
         }
 
-        public static string RootFolder
-        {
-            get
-            {
-                return GetParent(Assembly.GetExecutingAssembly().Location, "TL4Net");
-            }
-        }
-
-        public static string GetParent(string path, string parentName)
-        {
-            var dir = new DirectoryInfo(path);
-
-            if (dir.Parent == null)
-            {
-                return null;
-            }
-
-            if (dir.Parent.Name == parentName)
-            {
-                return dir.Parent.FullName;
-            }
-
-            return GetParent(dir.Parent.FullName, parentName);
-        }
+        
     }
 }

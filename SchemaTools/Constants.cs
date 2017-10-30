@@ -2,6 +2,7 @@
 {
     public class Constants
     {
+        public const string SolutionFolderName = "TL4Net";
         public const string DomainNameProject = "Telegram4Net.Domain";
         public const string FullDomainNameFolder = "Telegram4Net.Domain.TL";
         public const string DomainNameFolder = "TL";
