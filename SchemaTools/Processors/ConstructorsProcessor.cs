@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Telegram4Net.SchemaTools.Helpers;
 using Telegram4Net.SchemaTools.Models;
 
@@ -23,6 +24,10 @@ namespace Telegram4Net.SchemaTools.Processors
                 List<Constructor> sameTypeConstructors = GetElementsByType(constructorList, constructor.Type);
                 if (sameTypeConstructors.Count > 1)
                 {
+                    string nameSpace = NameHelper.GetNameSpace(constructor.Type);
+                    string className = NameHelper.GetNameofClass(constructor.Type, true);
+                    var dir = RootFolder + $"\\Domain\\TL\\{className}.cs";
+
                     string path =
                     (NameHelper.GetNameSpace(constructor.Type).Replace("TeleSharp.TL", "TL\\").Replace(".", "") + "\\" +
                      NameHelper.GetNameofClass(constructor.Type, true) + ".cs").Replace("\\\\", "\\");
@@ -55,6 +60,31 @@ namespace Telegram4Net.SchemaTools.Processors
         private List<Constructor> GetElementsByType(IEnumerable<Constructor> constructorList, string type)
         {
             return constructorList.Where(x => x.Type == type).ToList();
+        }
+
+        public static string RootFolder
+        {
+            get
+            {
+                return GetParent(Assembly.GetExecutingAssembly().Location, "TL4Net");
+            }
+        }
+
+        public static string GetParent(string path, string parentName)
+        {
+            var dir = new DirectoryInfo(path);
+
+            if (dir.Parent == null)
+            {
+                return null;
+            }
+
+            if (dir.Parent.Name == parentName)
+            {
+                return dir.Parent.FullName;
+            }
+
+            return GetParent(dir.Parent.FullName, parentName);
         }
     }
 }

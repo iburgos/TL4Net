@@ -45,7 +45,7 @@ namespace Telegram4Net.SchemaTools.Helpers
             else
                 formatedName = FormatName(type);
 
-            return isInterface ? $"I{formatedName}" : formatedName;
+            return isInterface ? $"TL{formatedName}" : formatedName;
         }
 
         private static bool ContainsDot(string type)
