@@ -2,7 +2,7 @@
 
 namespace Telegram4Net.SchemaTools.Models
 {
-    internal class Constructor
+    public class Constructor
     {
         public int Id { get; set; }
         public string Predicate { get; set; }

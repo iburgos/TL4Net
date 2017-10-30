@@ -7,7 +7,12 @@ using Telegram4Net.SchemaTools.Models;
 
 namespace Telegram4Net.SchemaTools.Processors
 {
-    internal class ConstructorsProcessor
+    public interface IConstructorsProcessor
+    {
+        void Process(List<Constructor> constructorList);
+    }
+
+    public class ConstructorsProcessor : IConstructorsProcessor
     {
         private string AbsTemplate => File.ReadAllText("../Templates/ConstructorAbs.tmp");
 
