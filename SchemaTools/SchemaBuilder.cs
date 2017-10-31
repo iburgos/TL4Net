@@ -31,6 +31,7 @@ namespace Telegram4Net.SchemaTools
 
             var schema = _jsonConverterHelper.Deserialize<Schema>(schemaJson);
 
+            FileHelper.CleanFolder();
             _constructorProcessor.Process(schema.Constructors);
 
             return true;

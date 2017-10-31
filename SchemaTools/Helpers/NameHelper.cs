@@ -34,14 +34,11 @@ namespace Telegram4Net.SchemaTools.Helpers
 
         public static string FormatFileName(string type)
         {
-            const string CLASS_PREFIX = "TL";
-
             if (String.IsNullOrEmpty(type))
                 throw new ArgumentException("ARGH!");
 
             string domain = GetDomainFromType(type);
-            Console.WriteLine($"type => {type} - - - domain => {domain}");
-            return CLASS_PREFIX + Capitalize(domain) + Capitalize(type);
+            return Constants.DomainNameFolder + Capitalize(domain) + Capitalize(type);
         }
 
         public static string GetNameofClass(string type)
@@ -62,6 +59,7 @@ namespace Telegram4Net.SchemaTools.Helpers
 
         public static string GetDomainFromType(string type)
         {
+            Console.WriteLine($"Type => {type}");
             string[] typeArray = type.Split(Constants.DotChar);
             return typeArray.Length == 1 ? string.Empty : typeArray[0];
         }

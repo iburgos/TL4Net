@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Telegram4Net.SchemaTools.Helpers;
@@ -13,19 +14,20 @@ namespace Telegram4Net.SchemaTools.Processors
 
     public class ConstructorsProcessor : IConstructorsProcessor
     {
-        private string AbsTemplate => File.ReadAllText("../Debug/Templates/ConstructorAbs.tmp");
+        private string AbsTemplate => File.ReadAllText($"{FileHelper.AssemblyFolder}/Templates/ConstructorAbs.tmp");
 
         public void Process(List<Constructor> constructorList)
         {
+            int processedCounter = 0;
             foreach (Constructor constructor in constructorList)
             {
                 List<Constructor> sameTypeConstructors = GetElementsByType(constructorList, constructor.Type);
-                if (sameTypeConstructors.Count > 1)
-                {
+                //if (sameTypeConstructors.Count > 1)
+                //{
                     string nameSpace = NameHelper.GetNameSpace(constructor.Type);
                     string className = NameHelper.GetNameofClass(constructor.Type);
                     string directory = FileHelper.GetFolderName(constructor.Type);
-                    string path = $"{directory}\\{className}.cs";
+                    string path = $"{directory}\\{className}{Constants.CSharpFileExtension}";
 
                     FileStream classFile = FileHelper.CreateFile(path);
 
@@ -37,13 +39,15 @@ namespace Telegram4Net.SchemaTools.Processors
                         writer.Close();
                         classFile.Close();
                     }
-                }
-                else
-                {
-                    //interfacesList.Remove(list.First().Type);
-                    //list.First().Type = "himself";
-                }
+                    processedCounter++;
+                //}
+                //else
+                //{
+                //    //interfacesList.Remove(list.First().Type);
+                //    //list.First().Type = "himself";
+                //}
             }
+            Console.WriteLine($"Total => {constructorList.Count} - Processed => {processedCounter}");
         }
 
         private List<Constructor> GetElementsByType(IEnumerable<Constructor> constructorList, string type)
