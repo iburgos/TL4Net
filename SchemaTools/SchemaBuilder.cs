@@ -14,15 +14,15 @@ namespace Telegram4Net.SchemaTools
     {
         private readonly ISchemaRetriever _schemaRetriever;
         private readonly IJsonConverterHelper _jsonConverterHelper;
-        private readonly IConstructorsProcessor _constructorProcessor;
+        private readonly IBaseConstructorsProcessor _baseConstructorProcessor;
 
         public SchemaBuilder(ISchemaRetriever schemaRetriever, 
             IJsonConverterHelper jsonConverterHelper,
-            IConstructorsProcessor constructorProcessor)
+            IBaseConstructorsProcessor baseConstructorProcessor)
         {
             _schemaRetriever = schemaRetriever;
             _jsonConverterHelper = jsonConverterHelper;
-            _constructorProcessor = constructorProcessor;
+            _baseConstructorProcessor = baseConstructorProcessor;
         }
 
         public async Task<bool> Build()
@@ -32,7 +32,7 @@ namespace Telegram4Net.SchemaTools
             var schema = _jsonConverterHelper.Deserialize<Schema>(schemaJson);
 
             FileHelper.CleanFolder();
-            _constructorProcessor.Process(schema.Constructors);
+            _baseConstructorProcessor.Process(schema.Constructors);
 
             return true;
         }

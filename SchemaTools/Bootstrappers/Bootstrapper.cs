@@ -14,6 +14,7 @@ namespace Telegram4Net.SchemaTools.Bootstrappers
             container.Register<IRestClient>(() => new RestClient());
             container.Register<ISchemaRetriever, SchemaRetriever>();
             container.Register<ISchemaBuilder, SchemaBuilder>();
+            container.Register<IBaseConstructorsProcessor, BaseBaseConstructorsProcessor>();
             container.Register<IConstructorsProcessor, ConstructorsProcessor>();
 
             container.Verify();

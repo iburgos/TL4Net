@@ -73,12 +73,14 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\JsonConverterHelper.cs" />
+    <Compile Include="Helpers\KeywordChecker.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
     <Compile Include="Models\Constructor.cs" />
     <Compile Include="Models\Method.cs" />
     <Compile Include="Models\Param.cs" />
     <Compile Include="Models\Schema.cs" />
     <Compile Include="Processors\ConstructorsProcessor.cs" />
+    <Compile Include="Processors\BaseConstructorsProcessor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchemaBuilder.cs" />
@@ -91,7 +93,7 @@
     <Content Include="Templates\Constructor.tmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\ConstructorAbs.tmp">
+    <Content Include="Templates\BaseConstructor.tmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\Method.tmp">

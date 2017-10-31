@@ -13,6 +13,7 @@
         public const char EmptyChar = ' ';
         public const string EmptyString = " ";
         public const string CSharpFileExtension = ".cs";
+        public const string TrueString = "true";
 
         public const string NamespaceSection = "/*NAMESPACE*/";
         public const string NameSection = "/*NAME*/";

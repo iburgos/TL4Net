@@ -33,7 +33,7 @@ namespace SchemaTools.Tests.Helpers
         {
             string expectedResult = "TLAuthSentCode";
 
-            string result = NameHelper.GetNameofClass(type);
+            string result = NameHelper.GetClassName(type);
 
             result.Should().Be(expectedResult);
         }
