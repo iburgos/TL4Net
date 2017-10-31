@@ -71,7 +71,7 @@
   <ItemGroup>
     <Compile Include="Bootstrappers\Bootstrapper.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Helpers\FileHelpers.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\JsonConverterHelper.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
     <Compile Include="Models\Constructor.cs" />
