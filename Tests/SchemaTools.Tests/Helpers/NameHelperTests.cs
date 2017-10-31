@@ -26,5 +26,16 @@ namespace SchemaTools.Tests.Helpers
 
             result.Should().Be(expectedResult);
         }
+
+        [Theory]
+        [InlineData("auth.SentCode")]
+        public void GetNameOfClass_TypeContainsDot_ReturnsClassNameWithDomainPrefix(string type)
+        {
+            string expectedResult = "TLAuthSentCode";
+
+            string result = NameHelper.GetNameofClass(type);
+
+            result.Should().Be(expectedResult);
+        }
     }
 }

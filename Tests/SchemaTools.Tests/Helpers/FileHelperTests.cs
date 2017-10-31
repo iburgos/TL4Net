@@ -10,7 +10,7 @@ namespace SchemaTools.Tests.Helpers
         [InlineData("Stickers")]
         public void GetFolderName_TypeDoesNotContainDot_ReturnsBaseFolderName(string type)
         {
-            string expectedResult = $"{FileHelper.RootFolder}\\Domain\\TL";
+            string expectedResult = $"{FileHelper.RootFolder}\\{FileHelper.DomainFolder}";
 
             string result = FileHelper.GetFolderName(type);
 
@@ -21,7 +21,7 @@ namespace SchemaTools.Tests.Helpers
         [InlineData("messages.Stickers")]
         public void GetFolderName_TypeContainsDot_ReturnsDomainNameFolder(string type)
         {
-            string expectedResult = $"{FileHelper.RootFolder}\\Domain\\TL\\Messages";
+            string expectedResult = $"{FileHelper.RootFolder}\\{FileHelper.DomainFolder}\\Messages";
 
             string result = FileHelper.GetFolderName(type);
 

@@ -32,12 +32,11 @@ namespace Telegram4Net.SchemaTools.Helpers
             return Capitalize(domain);
         }
 
-        public static string FormatFileName(string type)
+        public static string FormatFileName(string type, string domain)
         {
             if (String.IsNullOrEmpty(type))
                 throw new ArgumentException("ARGH!");
 
-            string domain = GetDomainFromType(type);
             return Constants.DomainNameFolder + Capitalize(domain) + Capitalize(type);
         }
 
@@ -48,11 +47,11 @@ namespace Telegram4Net.SchemaTools.Helpers
 
             string formatedName;
             if (containsDot && containsQuestionmark == false)
-                formatedName = FormatFileName(type.Split(Constants.DotChar)[1]);
+                formatedName = FormatFileName(type.Split(Constants.DotChar)[1], GetDomainFromType(type));
             else if (containsDot)
-                formatedName = FormatFileName(type.Split(Constants.QuestionmarkChar)[1]);
+                formatedName = FormatFileName(type.Split(Constants.QuestionmarkChar)[1], GetDomainFromType(type));
             else
-                formatedName = FormatFileName(type);
+                formatedName = FormatFileName(type, GetDomainFromType(type));
 
             return formatedName;
         }
